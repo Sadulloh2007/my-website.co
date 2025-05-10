@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinExchange - Курсы валют</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Баннер с SVG -->
+  <div class="banner" id="banner-main">
+    <svg width="100%" height="250" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" class="responsive-svg">
+      <defs>
+        <linearGradient id="bannerGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6366f1" />
+          <stop offset="100%" stop-color="#4f46e5" />
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="200" fill="url(#bannerGradient)" />
+      <circle cx="150" cy="100" r="40" fill="rgba(255,255,255,0.3)" />
+      <circle cx="1050" cy="100" r="40" fill="rgba(255,255,255,0.3)" />
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            class="banner-text">
+        FinExchange
+      </text>
+    </svg>
+  </div>
+
+  <!-- Шапка сайта -->
+  <header class="header">
+    <h1 class="animated-title"><i class="fas fa-coins"></i>Актуальные курсы валют</h1>
+    <button id="theme-toggle" class="theme-toggle">
+      <i class="fas fa-moon"></i>
+      <i class="fas fa-sun"></i>
+    </button>
+  </header>
+
+  <div class="container">
+    <!-- Конвертер -->
+    <div class="converter-card glassmorphism">
+      <div class="converter-header">
+        <h2><i class="fas fa-exchange-alt"></i> Конвертер</h2>
+      </div>
+      <div class="converter-body">
+        <div class="currency-group">
+          <div class="input-field">
+            <input type="number" id="amount" value="1000" placeholder="Сумма" />
+            <div class="currency-select">
+              <select id="from-currency">
+                <option value="RUB">🇷🇺 RUB</option>
+                <option value="USD">🇺🇸 USD</option>
+                <option value="EUR">🇪🇺 EUR</option>
+                <option value="USDT">₮ USDT</option>
+                <option value="SMN">🇹🇯 SMN</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Кнопка обмена валют -->
+          <div class="swap-btn-wrapper">
+            <button class="swap-btn" id="swap-currencies">
+              <i class="fas fa-arrows-alt-v"></i>
+            </button>
+          </div>
+
+          <div class="input-field">
+            <input type="text" id="result" readonly placeholder="Результат" />
+            <div class="currency-select">
+              <select id="to-currency">
+                <option value="SMN">🇹🇯 SMN</option>
+                <option value="RUB">🇷🇺 RUB</option>
+                <option value="USD">🇺🇸 USD</option>
+                <option value="EUR">🇪🇺 EUR</option>
+                <option value="USDT">₮ USDT</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Курсы валют (карточки) -->
+    <div class="currencies-grid">
+      <!-- USDT -->
+      <div class="currency-card glassmorphism">
+        <div class="currency-header">
+          <div class="currency-icon accent-1">₮</div>
+          <div>
+            <h3>USDT/RUB</h3>
+            <p class="source">Binance</p>
+          </div>
+        </div>
+        <div class="rate-container">
+          <div class="rate-item">
+            <span>Покупка</span>
+            <span class="rate buy" id="usdt-buy">—</span>
+          </div>
+          <div class="rate-item">
+            <span>Продажа</span>
+            <span class="rate sell" id="usdt-sell">—</span>
+          </div>
+        </div>
+      </div>
+      <!-- USD -->
+      <div class="currency-card glassmorphism">
+        <div class="currency-header">
+          <div class="currency-icon accent-2">$</div>
+          <div>
+            <h3>USD/RUB</h3>
+            <p class="source">ЦБ РФ</p>
+          </div>
+        </div>
+        <div class="rate-container">
+          <div class="rate-item">
+            <span>Покупка</span>
+            <span class="rate buy" id="usd-buy">—</span>
+          </div>
+          <div class="rate-item">
+            <span>Продажа</span>
+            <span class="rate sell" id="usd-sell">—</span>
+          </div>
+        </div>
+      </div>
+      <!-- EUR -->
+      <div class="currency-card glassmorphism">
+        <div class="currency-header">
+          <div class="currency-icon accent-3">€</div>
+          <div>
+            <h3>EUR/RUB</h3>
+            <p class="source">ЦБ РФ</p>
+          </div>
+        </div>
+        <div class="rate-container">
+          <div class="rate-item">
+            <span>Покупка</span>
+            <span class="rate buy" id="eur-buy">—</span>
+          </div>
+          <div class="rate-item">
+            <span>Продажа</span>
+            <span class="rate sell" id="eur-sell">—</span>
+          </div>
+        </div>
+      </div>
+      <!-- SMN -->
+      <div class="currency-card glassmorphism">
+        <div class="currency-header">
+          <div class="currency-icon accent-4">TJS</div>
+          <div>
+            <h3>SMN/RUB</h3>
+            <p class="source">НБТ (Таджикистан)</p>
+          </div>
+        </div>
+        <div class="rate-container">
+          <div class="rate-item">
+            <span>Покупка</span>
+            <span class="rate buy" id="smn-buy">—</span>
+          </div>
+          <div class="rate-item">
+            <span>Продажа</span>
+            <span class="rate sell" id="smn-sell">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Кнопка обновления курсов -->
+  <button class="refresh-btn glassmorphism" id="refresh-btn">
+    <i class="fas fa-sync-alt"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

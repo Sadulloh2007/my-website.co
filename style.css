@@ -1,0 +1,563 @@
+:root {
+  /* Цветовая схема */
+  --primary: #6366f1;
+  --secondary: #4f46e5;
+  --background: #f8fafc;
+  --text: #1e293b;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --rate-bg: rgba(241, 245, 249, 0.6);
+  --buy-color: #085002;
+  --sell-color: #ff0000;
+  --accent-1: #8b5cf6;
+  --accent-2: #3b82f6;
+  --accent-3: #f59e0b;
+  --accent-4: #ec4899;
+  --btn-gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  --btn-hover-gradient: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  --neumorph-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.8);
+  --neumorph-inset: inset 4px 4px 8px rgba(0, 0, 0, 0.1), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+  --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --background: #0f172a;
+  --text: #f8fafc;
+  --card-bg: rgba(30, 41, 59, 0.9);
+  --rate-bg: rgba(30, 41, 59, 0.6);
+  --primary: #818cf8;
+  --secondary: #6366f1;
+  --buy-color: #4ade80;
+  --sell-color: #f87171;
+  --btn-gradient: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+  --neumorph-shadow: 8px 8px 16px rgba(0,0,0,0.3), 
+                    -8px -8px 16px rgba(255,255,255,0.05);
+}
+
+/* Базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+/* Фон страницы с анимированным градиентом */
+body {
+  background: linear-gradient(-45deg, #6366f1, #0ce6e6, #818cf8, #2c2eb6);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Анимация движения фонового градиента */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Контейнер */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Баннер */
+.banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.responsive-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.banner-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  fill: #ffffff;
+  font-weight: 600;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.3));
+  animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes text-glow {
+  from { filter: drop-shadow(0 0 2px rgba(255,255,255,0.5)); }
+  to { filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)); }
+}
+
+.banner svg circle {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Заголовок */
+.header {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.animated-title {
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  animation: zoomInFade 1.2s ease-out forwards;
+}
+
+@keyframes zoomInFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Карточка конвертера */
+.converter-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.converter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.converter-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.currency-group {
+  display: grid;
+  gap: 1rem;
+}
+
+.input-field {
+  position: relative;
+  transition: var(--transition-default);
+}
+
+.input-field input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--rate-bg);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  background: var(--rate-bg);
+  transition: var(--transition-default);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.input-field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+.currency-select {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.currency-select select {
+  padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+  border: none;
+  background: var(--card-bg);
+  border-radius: 8px;
+  appearance: none;
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+/* Кнопка обмена */
+.swap-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.swap-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--btn-gradient);
+  color: white;
+  font-size: 1rem;
+  box-shadow: var(--neumorph-shadow);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swap-btn:hover {
+  transform: rotate(90deg) scale(1.05);
+}
+
+.swap-btn.rotate {
+  animation: rotateOnce 0.6s ease-in-out;
+}
+
+@keyframes rotateOnce {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Карточки валют */
+.currencies-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin: 2rem 0;
+}
+
+.currency-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: breathe 6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 1s);
+}
+
+.currency-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+.currency-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.currency-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.accent-1 { background: var(--accent-1); }
+.accent-2 { background: var(--accent-2); }
+.accent-3 { background: var(--accent-3); }
+.accent-4 { background: var(--accent-4); }
+
+.rate-container {
+  display: grid;
+  gap: 1rem;
+}
+
+.rate-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--rate-bg);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.rate-item:hover {
+  transform: scale(1.02);
+}
+
+.rate {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.buy { color: var(--buy-color); }
+.sell { color: var(--sell-color); }
+
+.rate.updated {
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Кнопки */
+button {
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-default);
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255,255,255,0.2) 50%,
+    transparent 75%
+  );
+  transform: translateX(100%);
+  transition: transform 0.6s ease;
+}
+
+button:hover::after {
+  transform: translateX(-50%);
+}
+
+/* Переключатель темы */
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  z-index: 100;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: rotate(360deg) scale(0.95);
+}
+
+.theme-toggle .fa-sun {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .fa-moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .fa-sun {
+  display: block;
+}
+
+/* Кнопка обновления */
+.refresh-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--btn-gradient);
+  color: white;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: pulse 2s infinite;
+  z-index: 50;
+}
+
+/* Стиль стекломорфизма */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+[data-theme="dark"] .glassmorphism {
+  background: rgba(30, 30, 46, 0.25) !important;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Медиа-запросы для адаптивности */
+/* Мобильные устройства (маленькие) */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .banner-text {
+    font-size: 24px !important;
+  }
+  
+  .animated-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .converter-card {
+    padding: 1rem;
+    margin: 1.5rem auto;
+  }
+  
+  .converter-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .input-field input {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .currency-select select {
+    padding: 0.4rem 1rem 0.4rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .currency-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+  
+  .rate-item {
+    padding: 0.6rem 0.75rem;
+  }
+  
+  .rate {
+    font-size: 1rem;
+  }
+  
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  .refresh-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Мобильные устройства (средние) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .banner-text {
+    font-size: 32px !important;
+  }
+  
+  .animated-title {
+    font-size: 2rem;
+  }
+  
+  .converter-card {
+    padding: 1.25rem;
+  }
+  
+  .theme-toggle {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+/* Планшеты */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .currencies-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .animated-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Десктопы и большие экраны */
+@media screen and (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+  
+  .converter-card {
+    max-width: 600px;
+    padding: 2rem;
+  }
+  
+  .converter-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .input-field input {
+    padding: 1.25rem;
+    font-size: 1.2rem;
+  }
+  
+  .swap-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 1.25rem;
+  }
+  
+  .currency-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.75rem;
+  }
+}
